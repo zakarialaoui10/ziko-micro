@@ -1,0 +1,46 @@
+body{
+	overflow-y:hidden;
+display:flex;
+justify-content:center;
+flex-direction: column;
+color:darkcyan;
+}
+input,label{
+			text-align: center;
+			width:50%;
+			padding: 20px;
+        font-size: 30px
+		}
+		button{
+			display: inline;
+			 all: unset;
+			font-size: 30px;
+			cursor:pointer;
+		}
+	#ui2{
+		display:grid;
+		grid-template-columns: auto;
+	}
+	.inputLabel,.inputData{
+		border: 1px solid rgba(0, 0, 0, 0.8);		
+	}
+#coordonne{
+	color:darkcyan;
+	position:relative;
+	margin-top:10px;
+	width:100%;
+	display:flex;
+	flex-direction: row;
+	justify-content: center;
+	z-index:1;
+}
+#link{
+display:flex;
+	justify-content: center;
+	flex-direction: row;	
+}
+#corlink{
+	display:flex;
+	justify-content: space-between;
+	flex-direction: column;
+}
