@@ -1,5 +1,6 @@
 body{
-	overflow-y:hidden;
+background: rgb(172,203,230);
+background: linear-gradient(32deg, rgba(172,203,230,1) 24%, rgba(172,190,230,1) 48%, rgba(40,129,207,1) 87%);
 display:flex;
 justify-content:center;
 flex-direction: column;
@@ -43,4 +44,13 @@ display:flex;
 	display:flex;
 	justify-content: space-between;
 	flex-direction: column;
+}
+#chartContainer{
+	margin-top:10%;
+}
+#ABC{
+    position:fixed;
+	top:10;
+	z-index:3;
+	color:white;
 }

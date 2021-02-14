@@ -36,6 +36,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	},
 	data:data 
 });
+var ABC=new Array(3)
 //chart.render();
 //pareto();	
 document.getElementById("valider").addEventListener("click",createDataInput);
@@ -62,6 +63,8 @@ function createDataInput(){
 		inputLabel[i].setAttribute("class","inputLabel");
 		inputData[i].setAttribute("placeholder","item "+(+i+1));
 		inputLabel[i].setAttribute("placeholder","label "+(+i+1));
+		inputLabel[i].setAttribute("value","label "+(+i+1));
+
 		document.getElementById("ui2").appendChild(inputData[i]);
 		document.getElementById("ui2").appendChild(inputLabel[i]);
 		document.getElementById("ui2").appendChild(document.createElement("br"));
@@ -71,19 +74,27 @@ function createDataInput(){
 	btn.innerHTML='<i class="fas fa-angle-double-right"></i>'
 	document.getElementById("ui").appendChild(btn);
 	btn.addEventListener("click",getData);
-	console.log([inputData,inputLabel])
+	//console.log([inputData,inputLabel])
 	//return [inputData,inputLabel]	
 }
 function getData(){
 	let d=[]
 	inputData=inputData.map((n)=>+n.value);
     inputLabel=inputLabel.map((n)=>n.value);
-        console.log([inputData,inputLabel])
+        //console.log([inputData,inputLabel])
     for(i=0;i<inputData.length;i++){
      d[i]={y:inputData[i],label:inputLabel[i]}
     }
     d.sort((a,b)=>b.y-a.y);
-
+    //let dataarr=d.map((n)=>n.y)
+    //let somme=dataarr.reduce((a,b)=>a+b);
+    //let pourcentage=new Array(d.length);
+    //accumulate = (...nums) =>nums.reduce((acc, n) => [...acc, n + +acc.slice(-1)], []);
+    //for(i=0;i<inputData.length;i++){
+     //pourcentage[i]={y:d[i].y/somme,label:inputLabel[i]}
+    //}
+    //let accum=accumulate(...pourcentage.map((n)=>n.y));
+    //console.log(accum)
     data[0].dataPoints.push(...d)
     chart.render();
     document.getElementsByClassName("canvasjs-chart-toolbar")[0].remove();
@@ -115,7 +126,14 @@ function pareto(){
 		yPercent += (yValue / yTotal * 100);
 		dps.push({label: chart.data[0].dataPoints[i].label, y: yPercent});
 	}
-	
+	ABC[0]=dps.filter((n)=>n.y<80);
+	ABC[1]=dps.filter((n)=>(n.y)<95&&(n.y>80));
+	ABC[2]=dps.filter((n)=>n.y>95);
+	console.log(ABC);
+	var ABCdiv=document.getElementById("ABC");
+	ABCdiv.innerHTML="class A : "+ABC[0].map((n)=>n.label)
+	ABCdiv.innerHTML+="\n class B : "+ABC[1].map((n)=>n.label)
+	ABCdiv.innerHTML+="\n class C : "+ABC[2].map((n)=>n.label)
 	chart.addTo("data",{type:"line", yValueFormatString: "0.##\"%\"", dataPoints: dps});
 	chart.data[1].set("axisYType", "secondary", false);
 	chart.axisY[0].set("maximum", yTotal);
